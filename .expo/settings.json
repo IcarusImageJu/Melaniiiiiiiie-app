@@ -3,5 +3,6 @@
   "lanType": "ip",
   "dev": true,
   "minify": false,
-  "urlRandomness": "pf-xdg"
+  "urlRandomness": "pf-xdg",
+  "https": false
 }
