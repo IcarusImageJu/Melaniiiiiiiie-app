@@ -3,7 +3,8 @@ import {
     Text,
     FlatList,
     SafeAreaView,
-    View
+	View,
+	TextInput
 } from 'react-native';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -16,44 +17,34 @@ import { t } from '../../services/i18n'
 import reducer from './reducer';
 import saga from './saga';
 import makeSelectHome from './selectors';
-import {loadList, loadCurrencies} from './actions';
-import {changeLocale} from '../LanguageProvider/actions';
+import {changeInputChan, submitChan} from './actions';
 import {makeSelectLocale} from '../LanguageProvider/selectors';
 
 const key = 'home';
 
 import Button from '../../components/Button';
 
-function Home({home, lang, handleloadList, handleloadCurrencies, handleChangeLang}) {
+function Home({home, handleSubmitChan, handleChangeInputChan}) {
     useInjectReducer({ key, reducer });
     useInjectSaga({ key, saga });
 
     return(
-        <SafeAreaView>
-            <View style={{flex: 1, paddingTop: 32}}>
-                <Text>{t('header')}</Text>
-                <Text>Current language: {lang}</Text>
-                <Button onPress={() => handleChangeLang('en')} title='App in EN' />
-                <Button onPress={() => handleChangeLang('fr')} title='App en FR' />
-                <Text>Fetch julien github repos with fetch</Text>
-                <Button onPress={handleloadList} title='Fetch list' />
-                <FlatList
-                    keyExtractor={item => item.name}
-                    data={home.list}
-                    renderItem={({item}) => (
-                        <Text>{item.name}</Text>
-                    )}
-                />
-                <Text>Fetch currency rates witch GQL</Text>
-                <Button onPress={handleloadCurrencies} title='Fetch rates' />
-                <FlatList
-                    keyExtractor={item => item.name}
-                    data={home.rates}
-                    renderItem={({item}) => (
-                        <Text>{item.name}</Text>
-                    )}
-                />
-            </View>
+        <SafeAreaView style={{padding: 50}}>
+            <Text>Entrer un nom de chan pour le rejoindre ou le creer si il n'existe pas encore</Text>
+			<TextInput
+				style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+				onChangeText={handleChangeInputChan}
+				value={home.chan}
+			/>
+			<Button onPress={() => handleSubmitChan(home.chan)}>
+				Rejoindre le chan
+			</Button>
+			<FlatList
+				ListHeaderComponent={<Text>Retrouver vos canaux</Text>}
+				data={home.chans}
+				keyExtractor={item => item}
+				renderItem={({item}) => <Text>{item}</Text>}
+			/>
         </SafeAreaView>
     )
 }
@@ -65,9 +56,8 @@ const mapStateToProps = createStructuredSelector({
   
 export function mapDispatchToProps(dispatch) {
     return {
-        handleloadList: () => dispatch(loadList()),
-        handleloadCurrencies: () => dispatch(loadCurrencies()),
-        handleChangeLang: lang => dispatch(changeLocale(lang))
+		handleChangeInputChan: text => dispatch(changeInputChan(text)),
+		handleSubmitChan: chan => dispatch(submitChan(chan)),
     };
 }
   

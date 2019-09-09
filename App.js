@@ -9,7 +9,8 @@
 import '@babel/polyfill';
 
 import React, { useState } from 'react';
-import { Asset, AppLoading } from 'expo';
+import { TouchableOpacity, Text } from 'react-native';
+import { Asset, AppLoading, Updates } from 'expo';
 import { Provider } from 'react-redux';
 
 import { PersistGate } from 'redux-persist/integration/react'
@@ -43,10 +44,18 @@ function Root() {
     )
   }
 
+  const _purger = async () => {
+	await store.persistor.purge();
+	Updates.reloadFromCache();
+  }
+
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={store.persistor}>
         <App />
+		<TouchableOpacity onPress={_purger}>
+			<Text>Purge the app</Text>
+		</TouchableOpacity>
       </PersistGate>
     </Provider>
   );

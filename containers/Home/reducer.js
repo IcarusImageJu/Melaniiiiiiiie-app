@@ -4,25 +4,26 @@
  *
  */
 import produce from 'immer';
-import { LOADED_LIST, LOADED_CURRENCIES } from './constants';
+import { CHANGE_INPUT_CHAN, SUBMIT_CHAN } from './constants';
+import { _ } from 'lodash';
 
 // The initial state of the App
 export const initialState = {
-  list: [],
-  rates : [],
+	chan: '',
+	chans: [],
 };
 
 /* eslint-disable default-case, no-param-reassign */
 const homeReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
-      case LOADED_LIST:
-        draft.list = action.list;
-        break;
-      case LOADED_CURRENCIES:
-        draft.rates = action.rates;
-        break;
+		case CHANGE_INPUT_CHAN:
+			draft.chan = action.text;
+			break;
+		case SUBMIT_CHAN:
+			draft.chans = _.union([action.chan], draft.chans);
+			break;
     }
-  });
+});
 
 export default homeReducer;

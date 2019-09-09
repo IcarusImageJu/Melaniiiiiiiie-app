@@ -1,29 +1,19 @@
-import { LOADED_LIST, LOAD_LIST, LOAD_CURRENCIES, LOADED_CURRENCIES } from './constants';
+import slug from 'slug';
 
+import { CHANGE_INPUT_CHAN, SUBMIT_CHAN } from './constants';
 
-// LOAD LIST
-export function loadList() {
+export function changeInputChan(val) {
+	const text = slug(val.replace(/\s+/g, '-'));
     return{
-        type: LOAD_LIST,
+		text,
+        type: CHANGE_INPUT_CHAN,
     }
 }
 
-export function loadedList(list) {
+export function submitChan(chan) {
     return{
-        type: LOADED_LIST,
-        list,
-    }
-}
-// LOAD CURRENCIES
-export function loadCurrencies() {
-    return{
-        type: LOAD_CURRENCIES,
+		chan,
+        type: SUBMIT_CHAN,
     }
 }
 
-export function loadedCurrencies(rates) {
-    return{
-        type: LOADED_CURRENCIES,
-        rates,
-    }
-}

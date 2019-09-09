@@ -1,4 +1,2 @@
-export const LOADED_LIST = 'containers/Home/LOADED_LIST';
-export const LOAD_LIST = 'containers/Home/LOAD_LIST';
-export const LOADED_CURRENCIES = 'containers/Home/LOADED_CURRENCIES';
-export const LOAD_CURRENCIES = 'containers/Home/LOAD_CURRENCIES';
+export const SUBMIT_CHAN = 'containers/Home/SUBMIT_CHAN';
+export const CHANGE_INPUT_CHAN = 'containers/Home/CHANGE_INPUT_CHAN';
