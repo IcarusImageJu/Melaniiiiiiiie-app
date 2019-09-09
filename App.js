@@ -9,10 +9,8 @@
 import '@babel/polyfill';
 
 import React, { useState } from 'react';
-import { AppLoading } from 'expo';
-import { Asset } from 'expo-asset'
+import { Asset, AppLoading } from 'expo';
 import { Provider } from 'react-redux';
-import * as Font from 'expo-font';
 
 import { PersistGate } from 'redux-persist/integration/react'
 
@@ -27,23 +25,13 @@ import App from './containers/App';
 function Root() {
   const [appReady, setAppReady] = useState(false);
   const _cachRessourceAsync = async () => {
-	// load minimal ressources for the homepage
-	// const bg = require('./assets/login.png');
-	// const logo = require('./assets/logo.png');
-	try {
-		await Promise.all([
-			// Asset.fromModule(bg).downloadAsync(),
-			// Asset.fromModule(logo).downloadAsync(),
-			i18n.init(),
-			Font.loadAsync({
-				'antoutline': require('@ant-design/icons-react-native/fonts/antoutline.ttf'),
-				'antfill': require('@ant-design/icons-react-native/fonts/antfill.ttf')
-			})
-		]);
-		setAppReady(true)
+    // load minimal ressources for the homepage
+    // load i18n translation
+    try {
+      await i18n.init();
     } catch (error) {
-      	console.warn(error);
-	}
+      console.warn(error);
+    }
     
   }
   if(!appReady){

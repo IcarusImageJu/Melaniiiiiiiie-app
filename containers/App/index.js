@@ -1,5 +1,6 @@
 import React, {memo, useEffect, useState} from 'react';
-import { View, AsyncStorage } from 'react-native';
+import { View } from 'react-native';
+import * as SecureStore from 'expo-secure-store';
 import { Route, NativeRouter } from 'react-router-native';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
@@ -21,9 +22,9 @@ function App({lang, handleSetLocale}) {
     if(locale !== ''){
       await i18next.changeLanguage(locale);
       setLocalized(!localized);
-      await AsyncStorage.setItem(MyStorage.LANG, locale);
+      await SecureStore.setItemAsync(MyStorage.LANG, locale);
     } else {
-      const currentLang = await AsyncStorage.getItem(MyStorage.LANG);
+      const currentLang = await SecureStore.getItemAsync(MyStorage.LANG);
       handleSetLocale(currentLang);
     }
     

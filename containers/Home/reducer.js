@@ -4,6 +4,7 @@
  *
  */
 import produce from 'immer';
+import { LOADED_LIST, LOADED_CURRENCIES } from './constants';
 
 // The initial state of the App
 export const initialState = {
@@ -15,7 +16,12 @@ export const initialState = {
 const homeReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
-	  default: break;
+      case LOADED_LIST:
+        draft.list = action.list;
+        break;
+      case LOADED_CURRENCIES:
+        draft.rates = action.rates;
+        break;
     }
   });
 

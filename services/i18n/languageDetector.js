@@ -1,12 +1,12 @@
 import * as Localization from 'expo-localization'
-import { AsyncStorage } from 'react-native';
+import * as SecureStore from 'expo-secure-store';
 import MyStorage from '../../constants/myStorage';
 
 const languageDetector = {
     type: 'languageDetector',
     async: true,
     detect: async (callback) => {
-        const lang = await AsyncStorage.getItem(MyStorage.LANG);
+        const lang = await SecureStore.getItemAsync(MyStorage.LANG);
         if(lang !== null) {
             return callback(lang)
         }

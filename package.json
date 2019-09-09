@@ -8,16 +8,14 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "@ant-design/react-native": "^3.1.13",
     "@babel/polyfill": "^7.4.4",
     "apollo-cache-inmemory": "^1.6.2",
     "apollo-client": "^2.6.3",
     "apollo-upload-client": "^10.0.1",
     "expo": "^34.0.1",
-    "expo-asset": "~6.0.0",
     "expo-constants": "~6.0.0",
-    "expo-font": "~6.0.1",
     "expo-localization": "~6.0.0",
+    "expo-secure-store": "~6.0.0",
     "graphql": "^14.4.2",
     "graphql-tag": "^2.10.1",
     "hoist-non-react-statics": "^3.3.0",

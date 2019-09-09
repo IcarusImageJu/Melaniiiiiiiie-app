@@ -1,5 +1,5 @@
 export default {
-    LANG: "@MyLocalStore:lang",
+    LANG: "SecureStorage-lang",
 }
 
 // Secure key can only contain alphanumeric and '.', '-', '_'
