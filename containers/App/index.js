@@ -15,6 +15,8 @@ import { changeLocale } from '../LanguageProvider/actions';
 import { styles } from './styles';
 
 import Home from '../Home';
+import Create from '../Create';
+import Chan from '../Chan';
 
 function App({lang, handleSetLocale}) {
   const [localized, setLocalized] = useState(false);
@@ -37,6 +39,8 @@ function App({lang, handleSetLocale}) {
     <NativeRouter>
         <View style={styles.container}>
           <Route exact path='/' component={Home}/>
+		  <Route exact path='/create/:slug' component={Create}/>
+		  <Route exact path='/chan/:slug' component={Chan}/>
         </View>
     </NativeRouter>
   );

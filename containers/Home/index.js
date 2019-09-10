@@ -4,11 +4,14 @@ import {
     FlatList,
     SafeAreaView,
 	View,
+	TouchableOpacity,
 	TextInput
 } from 'react-native';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import { withRouter } from "react-router";
+import { Link } from 'react-router-native';
 
 import { useInjectReducer } from '../../utils/injectReducer';
 import { useInjectSaga } from '../../utils/injectSaga';
@@ -24,9 +27,9 @@ const key = 'home';
 
 import Button from '../../components/Button';
 
-function Home({home, handleSubmitChan, handleChangeInputChan}) {
+function Home({home, handleSubmitChan, handleChangeInputChan, history}) {
     useInjectReducer({ key, reducer });
-    useInjectSaga({ key, saga });
+	useInjectSaga({ key, saga });
 
     return(
         <SafeAreaView style={{padding: 50}}>
@@ -36,14 +39,14 @@ function Home({home, handleSubmitChan, handleChangeInputChan}) {
 				onChangeText={handleChangeInputChan}
 				value={home.chan}
 			/>
-			<Button onPress={() => handleSubmitChan(home.chan)}>
+			<Button onPress={() => handleSubmitChan(home.chan, history.push)}>
 				Rejoindre le chan
 			</Button>
 			<FlatList
-				ListHeaderComponent={<Text>Retrouver vos canaux</Text>}
+				ListHeaderComponent={<Text>Retrouver vos canaux récents</Text>}
 				data={home.chans}
 				keyExtractor={item => item}
-				renderItem={({item}) => <Text>{item}</Text>}
+				renderItem={({item}) => <Link to={`/chan/${item}`}><Text>{item}</Text></Link>}
 			/>
         </SafeAreaView>
     )
@@ -57,7 +60,7 @@ const mapStateToProps = createStructuredSelector({
 export function mapDispatchToProps(dispatch) {
     return {
 		handleChangeInputChan: text => dispatch(changeInputChan(text)),
-		handleSubmitChan: chan => dispatch(submitChan(chan)),
+		handleSubmitChan: (chan, push) => dispatch(submitChan(chan, push)),
     };
 }
   
@@ -68,5 +71,6 @@ const withConnect = connect(
 
 export default compose(
     withConnect,
-    memo,
+	memo,
+	withRouter,
 )(Home);

@@ -10,8 +10,9 @@ export function changeInputChan(val) {
     }
 }
 
-export function submitChan(chan) {
+export function submitChan(chan, push) {
     return{
+		push,
 		chan,
         type: SUBMIT_CHAN,
     }

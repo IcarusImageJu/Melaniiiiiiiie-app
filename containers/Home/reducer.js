@@ -22,6 +22,9 @@ const homeReducer = (state = initialState, action) =>
 			break;
 		case SUBMIT_CHAN:
 			draft.chans = _.union([action.chan], draft.chans);
+			if(draft.chans.length === 10) {
+				draft.chans.pop();
+			}
 			break;
     }
 });
